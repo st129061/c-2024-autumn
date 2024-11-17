@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 
 int * CreateIntArray( unsigned int * len );
 void DestroyIntArray( int ** array, unsigned int * len );
@@ -12,6 +13,8 @@ int PopBackIntArray( int ** array, unsigned int * len );
 
 void PrintIntArray( int * array, unsigned int len );
 
+void FillRandomIntArray( int * a, int len, int min = 0, int max = 9 );
+
 void PrintMenu( void )
 {
     system("cls");
@@ -22,7 +25,8 @@ void PrintMenu( void )
         << "3 push front array\n"
         << "4 push back to array\n"
         << "5 pop front from array\n"
-        << "6 pop back from array";
+        << "6 pop back from array\n"
+        << "7 fill random";
 }
 
 int main( int argc, char * argv )
@@ -35,10 +39,17 @@ int main( int argc, char * argv )
     while (flag)
     {
         PrintMenu();
-        std::cout << "Array: \n";
+        std::cout << "\nArray: \n";
         PrintIntArray(array, len);
         std::cout << "\n> ";
         std::cin >> choice;
+
+        if (std::cin.fail()) 
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
 
         switch (choice)
         {
@@ -50,7 +61,7 @@ int main( int argc, char * argv )
         case 1:
         {
             DestroyIntArray(&array, &len);
-            std::cout << "Input len:\n> ";
+            std::cout << "Input len: ";
             std::cin >> len;
             array = CreateIntArray(&len);
             break;
@@ -86,9 +97,21 @@ int main( int argc, char * argv )
             PopBackIntArray(&array, &len);
             break;
         }
+        case 7:
+        {
+            int element1 = 0;
+            int element2 = 0;
+
+            std::cout << "Intput element min: ";
+            std::cin >> element1;
+            std::cout << "Intput element max: ";
+            std::cin >> element2;
+
+            FillRandomIntArray(array, len, element1, element2);
+            break;
+        }
         }
     }
-    std::cout << "exit\n";
 
     DestroyIntArray(&array, &len);
 
@@ -216,5 +239,13 @@ void PrintIntArray( int * array, unsigned int len )
         {
             std::cout << array[i] << " ";
         }
+    }
+}
+
+void FillRandomIntArray( int * a, int len, int min, int max )
+{
+    for (int i = 0; i < len; ++i)
+    {
+        a[i] = rand() % (max - min + 1) + min;
     }
 }
