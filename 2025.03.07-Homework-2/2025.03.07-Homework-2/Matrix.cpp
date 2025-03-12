@@ -224,7 +224,7 @@ void Matrix::transpose()
             }
         }
 
-        
+            
 
         freeData(this->data, this->rows);
         this->data = createData(tmp.rows, tmp.cols);
