@@ -212,6 +212,35 @@ void Matrix::transpose()
             }
         }
     }
+    else
+    {
+        Matrix tmp(this->cols, this->rows);
+
+        for (int i = 0; i < this->rows; ++i)
+        {
+            for (int j = 0; j < this->cols; ++j)
+            {
+                tmp.data[j][i] = this->data[i][j];
+            }
+        }
+
+        
+
+        freeData(this->data, this->rows);
+        this->data = createData(tmp.rows, tmp.cols);
+
+        
+        this->rows = tmp.rows;
+        this->cols = tmp.cols;
+
+        for (int i = 0; i < this->rows; ++i)
+        {
+            for (int j = 0; j < this->cols; ++j)
+            {
+                this->data[i][j] = tmp.data[i][j];
+            }
+        }
+    }
 }
 
 Matrix add(Matrix m1, Matrix m2)

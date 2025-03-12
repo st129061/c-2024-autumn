@@ -50,8 +50,19 @@ int main(int argc, char* argv[])
     D.set(1, 0, 3);
     D.set(1, 1, 1);
 
-
     solve(C, D).print(std::cout);
+    
+    /* Слово Hui используется и европейцами с 1846 года для обозначения собраний маори */
+    Matrix HUI(3, 2);
+    HUI.set(0, 0, 1);
+    HUI.set(0, 1, -2);
+    HUI.set(1, 0, 0);
+    HUI.set(1, 1, 4);
+    HUI.set(2, 0, 5);
+    HUI.set(2, 1, 0);
+
+    HUI.print(std::cout);
+    transpose(HUI).print(std::cout);
 
     return 0;
 }
